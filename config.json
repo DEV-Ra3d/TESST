@@ -1,5 +1,5 @@
 {
-"sourse_dev": 7788181885,
+    "sourse_dev": 7788181885,
     "zombie_id": 7834878009,
     "source_devv": "JX_F9",
     "dev_name": "رعد",
@@ -15,5 +15,7 @@
     "Source_design": "ᏚᎾᏌᎡᏟᎬ RA3D",
     "Source_name": "رعد",
     "video_path": "https://t.me/RA3D_OFFICEL/2",
-    "design": "."
+    "design": ".",
+    "bot_token": "7417570990:AAHrUfsk5CKgVBWPrmY3nRVzRySUGn2lKAw",
+    "bot_username": "JX_F9"
 }
