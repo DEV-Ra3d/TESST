@@ -3,21 +3,25 @@ import json
 import os
 from pyrogram import Client
 from pytgcalls import PyTgCalls
+from dotenv import load_dotenv
+
+# تحميل المتغيرات البيئية
+load_dotenv()
 
 # تحميل إعدادات التكوين
 with open('config.json', 'r', encoding='utf-8') as file:
     config = json.load(file)
 
-# معلومات API
-API_ID = int("8186557")
-API_HASH = "efd77b34c69c164ce158037ff5a0d117"
+# معلومات API من المتغيرات البيئية (آمنة)
+API_ID = int(os.getenv("API_ID"))
+API_HASH = os.getenv("API_HASH")
+BOT_TOKEN = os.getenv("BOT_TOKEN")
 
-# معلومات البوت من التكوين
-BOT_TOKEN = "7417570990:AAHrUfsk5CKgVBWPrmY3nRVzRySUGn2lKAw"
+# معرف المالك من التكوين
 owner_id = config['sourse_dev']
 
-# قائمة المطورين
-DEVS = [7788181885]
+# قائمة المطورين - المطور الجديد: رعد
+DEVS = [7788181885]  # رعد فقط
 
 # إنشاء عميل البوت
 bot = Client(
@@ -39,6 +43,8 @@ async def start_zombiebot():
         print("✅ تم تشغيل البوت بنجاح")
         print(f"🤖 اسم البوت: {(await bot.get_me()).first_name}")
         print(f"👤 معرف البوت: @{(await bot.get_me()).username}")
+        print(f"👨‍💻 المطور: {config.get('dev_name', 'رعد')}")
+        print(f"📢 قناة السورس: @{config.get('channel_source', 'RA3D_OFFICEL')}")
         await asyncio.Event().wait()
     except Exception as e:
         print(f"❌ خطأ في تشغيل البوت: {e}")
