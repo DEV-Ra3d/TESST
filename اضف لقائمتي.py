@@ -1,24 +1,18 @@
-• أول فريق مصري متخصص في تطوير بايثون Python   
-• القناة #Code الرسميـة الرائدة في تـعليم البرمجة عربيًا 
-• جميع الحقوق و النشر محفوظة:  ©️ VEGA™ 2015  
-• مطور ومُنشئ المحتوى:  
-• @TopVeGa
-• @DevVeG
+# أول فريق مصري متخصص في تطوير بايثون Python   
+# القناة #Code الرسميـة الرائدة في تـعليم البرمجة عربيًا 
+# جميع الحقوق و النشر محفوظة:  ©️ رعد™ 2025  
+# مطور ومُنشئ المحتوى:  
+# @JX_F9
+# @JX_F9
 
-
-
-
-
-
-
+from pyrogram import Client, filters
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from youtubesearchpython import SearchVideos
 import re, os
 from yt_dlp import YoutubeDL
 
-
 lists = {}
 user_lists = {}
-
 
 @Client.on_message(filters.command(["اضف لقائمتي"], ""))
 async def add_to_user_list(client, message):
@@ -40,7 +34,7 @@ async def add_to_user_list(client, message):
         videoid = video_info["id"]
         channel_name = video_info["channel"]
         thum = video_info["title"]
-        title = re.sub(r"\W+", " ", thum).title()
+        title = re.sub(r"\\W+", " ", thum).title()
         video_duration = video_info.get("duration", "0")
         views = video_info.get("views", "غير متوفر")
         useram = f"https://img.youtube.com/vi/{videoid}/hqdefault.jpg"
@@ -90,7 +84,7 @@ async def user_list(client, message):
     markup = InlineKeyboardMarkup(buttons)
     await message.reply("**اختر مقطعًا لتشغيله:**", reply_markup=markup)
 
-@Client.on_callback_query(filters.regex(r"^play_(\d+)_(\d+)$"))
+@Client.on_callback_query(filters.regex(r"^play_(\\d+)_(\\d+)$"))
 async def delete_buttons(client, callback_query):
     user_id = callback_query.from_user.id
     index = int(callback_query.data.split("_")[1])
@@ -112,7 +106,7 @@ async def delete_buttons(client, callback_query):
     await callback_query.message.edit_text(f"**{title}**", reply_markup=markup)
     await callback_query.answer()
 
-@Client.on_callback_query(filters.regex(r"^do_play_(\d+)_(\d+)$"))
+@Client.on_callback_query(filters.regex(r"^do_play_(\\d+)_(\\d+)$"))
 async def do_play(client, callback_query):
     user_id = callback_query.from_user.id
     group_id = callback_query.message.chat.id
@@ -141,7 +135,7 @@ async def do_play(client, callback_query):
     else:
         await callback_query.message.edit_text(f"تم تشغيل المقطع: {item.get('channel_name', 'بدون عنوان')}")
 
-@Client.on_callback_query(filters.regex(r"^do_delete_(\d+)_(\d+)$"))
+@Client.on_callback_query(filters.regex(r"^do_delete_(\\d+)_(\\d+)$"))
 async def ddelete(client, callback_query):
     user_id = callback_query.from_user.id
     index = int(callback_query.data.split("_")[2])
@@ -153,7 +147,7 @@ async def ddelete(client, callback_query):
     user_lists[user_id].pop(index)
     await callback_query.message.edit_text(f"تم حذف المقطع")
 
-@Client.on_callback_query(filters.regex(r"^back_to_list_(\d+)$"))
+@Client.on_callback_query(filters.regex(r"^back_to_list_(\\d+)$"))
 async def back_to_list(client, callback_query):
     await sh_user_list(client, callback_query)
     await callback_query.answer()
