@@ -1,0 +1,38 @@
+{
+    "dardasha": {},
+    "mutaharek": {},
+    "channel_lock": {},
+    "videoo": {},
+    "tawgeh": {},
+    "photo_lock": {},
+    "link_lock": {},
+    "mentionn": {},
+    "swear_lock": {
+        "-1002894180061": [
+            "restrict",
+            "all"
+        ]
+    },
+    "sticker_lock": {},
+    "muted_users": {
+        "-1002815840472": [
+            7908578664,
+            7573320457
+        ],
+        "-1002894180061": [
+            8485626934,
+            1799994755,
+            5925062951,
+            1250510572
+        ]
+    },
+    "english_lock": {},
+    "emoji_lock": {},
+    "clash_lock": {},
+    "ban_lock": {},
+    "id_lock": [],
+    "id_photo_lock": [],
+    "sorty_lock": [],
+    "promotion_lock": [],
+    "kickme_lock": []
+}
