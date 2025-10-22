@@ -1,6 +1,5 @@
-aaiofiles==23.2.1
+aiofiles==23.2.1
 aiohttp==3.9.1
-asyncio
 dnspython==2.4.2
 ffmpeg-python==0.2.0
 gitpython==3.1.40
@@ -23,3 +22,4 @@ tgcrypto==1.2.5
 youtube-search==2.1.2
 youtube-search-python==1.6.6
 yt-dlp==2023.11.16
+flask==2.3.3
