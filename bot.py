@@ -1,53 +1,64 @@
-import asyncio
-import json
 import os
-from pyrogram import Client
-from pytgcalls import PyTgCalls
+import asyncio
+from pyrogram import Client, filters
+from pyrogram.types import Message
 from dotenv import load_dotenv
+import json
 
 # تحميل المتغيرات البيئية
 load_dotenv()
 
-# تحميل إعدادات التكوين
-with open('config.json', 'r', encoding='utf-8') as file:
-    config = json.load(file)
+# قراءة الإعدادات
+with open('config.json', 'r', encoding='utf-8') as f:
+    config = json.load(f)
 
-# معلومات API من المتغيرات البيئية (آمنة)
+# معلومات البوت
 API_ID = int(os.getenv("API_ID"))
 API_HASH = os.getenv("API_HASH")
 BOT_TOKEN = os.getenv("BOT_TOKEN")
+DEVELOPER_ID = int(os.getenv("DEVELOPER_ID", config.get("sourse_dev", 9537788181885)))
 
-# معرف المالك من التكوين
-owner_id = config['sourse_dev']
-
-# قائمة المطورين - المطور الجديد: رعد
-DEVS = [7788181885]  # رعد فقط
+# قائمة المطورين
+DEVS = [DEVELOPER_ID]
 
 # إنشاء عميل البوت
-bot = Client(
-    "zombie_bot",
+app = Client(
+    "TelegramBot",
     api_id=API_ID,
     api_hash=API_HASH,
     bot_token=BOT_TOKEN,
     plugins=dict(root="plugins")
 )
 
-# إنشاء عميل المكالمات الصوتية
-call_py = PyTgCalls(bot)
-
 async def start_zombiebot():
     """بدء تشغيل البوت"""
     try:
-        await bot.start()
-        await call_py.start()
-        print("✅ تم تشغيل البوت بنجاح")
-        print(f"🤖 اسم البوت: {(await bot.get_me()).first_name}")
-        print(f"👤 معرف البوت: @{(await bot.get_me()).username}")
-        print(f"👨‍💻 المطور: {config.get('dev_name', 'رعد')}")
-        print(f"📢 قناة السورس: @{config.get('channel_source', 'RA3D_OFFICEL')}")
-        await asyncio.Event().wait()
+        await app.start()
+        print("✅ تم تشغيل البوت بنجاح!")
+        
+        # إرسال رسالة للمطور عند بدء التشغيل
+        try:
+            await app.send_message(
+                DEVELOPER_ID,
+                "🤖 **تم تشغيل البوت بنجاح!**\n\n"
+                f"🆔 **معرف المطور:** `{DEVELOPER_ID}`\n"
+                f"🔗 **معرف البوت:** `@{(await app.get_me()).username}`"
+            )
+        except Exception as e:
+            print(f"❌ خطأ في إرسال رسالة البدء: {e}")
+            
+        return app
     except Exception as e:
         print(f"❌ خطأ في تشغيل البوت: {e}")
+        return None
+
+# دالة للتحقق من المطور
+def is_dev(user_id: int) -> bool:
+    """التحقق من أن المستخدم مطور"""
+    return user_id in DEVS
+
+# فلتر المطورين
+dev_filter = filters.user(DEVS)
 
 if __name__ == "__main__":
     asyncio.run(start_zombiebot())
